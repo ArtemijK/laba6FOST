@@ -1,4 +1,4 @@
-//SECOND2
+//SECOND3
 #define _USE_MATH_DEFINES
 //Подключаем библиотеку glut.h и cmath
 #include <GL\glut.h>
@@ -23,11 +23,11 @@ double dy_dt = 0;
 double x_pred, y_pred;
 
 
-double dv_dt1=3;
+double dv_dt1;
 double v1=0;
 double h1=0;
 double tau1=0;
-double dv_dt2=0;
+double dv_dt2;
 double v2=0;
 double h2=0;
 double tau2=0;
@@ -63,7 +63,7 @@ void change_size(GLsizei w, GLsizei h) {
 	aspect_ratio = (GLdouble)w / (GLdouble)h;
 	gluPerspective(150.0, aspect_ratio, 1, 100.0);
 	glTranslatef(0.0, 0.0, -12.0);
-	glRotatef(15.0f, 1.0f, 1.0f, 1.0f);
+	//glRotatef(15.0f, 1.0f, 1.0f, 1.0f);
 	//gluLookAt(0, 0, 150, 0, 0, 0, 0, 1, 0);
 
 	/*
@@ -107,34 +107,23 @@ void render_scene() {
 	glVertex3f(0.0, -22.0, -22.0);
 	glVertex3f(0.0, 22.0, 22.0);
 	glEnd();
-	
-	//Задаем в качества цвета закраски синий 
+	 /*#################################################################################################*/
 	glColor3f(1.0, 1.0, 1.0);
-	//Рисуем траекторию первого спутника 
 	glPointSize(3);
-	//glLineWidth(10);
 	glEnable(GL_POINT_SMOOTH);
 	glBegin(GL_POINTS);
-	t = 0;
-	//while (t <= N) {
+	dv_dt1 = 3;
+	dv_dt2 = 0;
 	x = -15;
 	y = 0.7;
 	for (t = 0; t <= N; t += dt) {
 		x_pred = x;
 		y_pred = y;
 		dv_dt1 = dv_dt1 + F * (x / pow(sqrt(x*x + y * y), 3)) *dt;
-
 		x = x + (dv_dt1 * dt);
 
 		dv_dt2 = dv_dt2 + F * (y / pow(sqrt(y*y + x * x), 3)) * dt;
-
 		y = y + (dv_dt2 * dt);
-		//x = velo(x_pred, y_pred, dt);
-		//cout << x << endl;
-		//y = velo2(x_pred, y_pred, dt);
-		//cout << y << endl;
-		
-		
 	}
 	glColor3f(0.0, 0.0, 0.0);
 	glVertex2d(x_pred, y_pred);
@@ -142,39 +131,30 @@ void render_scene() {
 	glVertex2d(x, y);
 	glEnd();
 
+	/*##################################################################################################*/
 
 	glBegin(GL_POINTS);
-	t = 0;
-	//while (t <= N) {
-	x = -15;
-	y = 0.5;
 	dv_dt1 = 3;
 	dv_dt2 = 0;
+	x = -5;
+	y = 0.5;
 	for (t = 0; t <= N; t += dt) {
 		x_pred = x;
 		y_pred = y;
 		dv_dt1 = dv_dt1 + F * (x / pow(sqrt(x*x + y * y), 3)) *dt;
-
 		x = x + (dv_dt1 * dt);
 
 		dv_dt2 = dv_dt2 + F * (y / pow(sqrt(y*y + x * x), 3)) * dt;
-
 		y = y + (dv_dt2 * dt);
-		//x = velo(x_pred, y_pred, dt);
-		//cout << x << endl;
-		//y = velo2(x_pred, y_pred, dt);
-		//cout << y << endl;
-
-
 	}
 	glColor3f(0.0, 0.0, 1.0);
 	glVertex2d(x_pred, y_pred);
 	glColor3f(0.0, 0.0, 1.0);
 	glVertex2d(x, y);
 	glEnd();
-	glBegin(GL_LINE_STRIP);
+	/*glBegin(GL_LINE_STRIP);
 	glVertex2d(x, y);
-	glEnd();
+	glEnd();*/
 
 
 	
