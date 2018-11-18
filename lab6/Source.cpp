@@ -1,3 +1,4 @@
+//SECOND
 #define _USE_MATH_DEFINES
 //Подключаем библиотеку glut.h и cmath
 #include <GL\glut.h>
